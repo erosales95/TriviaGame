@@ -1,19 +1,106 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Trivia Game!</title>
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 </head>
+
 <body>
-    
+    <h1>Trivia Game!</h1>
+    <div>
+        <button id="start-game">Start Game</button>
+    </div>
+    <div id="show-number">
+        <h2>Time remaining: 30 seconds</h2>
+    </div>
+
+    <div class="questions">
+
+        <h3>Question0</h3>
+            <form>
+                <input type="radio" name="answer" value="answer1">Answer1
+                <input type="radio" name="answer" value="answer2">Answer2
+                <input type="radio" name="answer" value="answer3">Answer3
+                <input type="radio" name="answer" value="answer4">Answer4
+            </form>
+            
+        <h3>Question1</h3>
+            <form>
+                <input type="radio" name="answer" value="answer1">Answer1
+                <input type="radio" name="answer" value="answer2">Answer2
+                <input type="radio" name="answer" value="answer3">Answer3
+                <input type="radio" name="answer" value="answer4">Answer4
+            </form>
+
+        <h3>Question2</h3>
+            <form>
+                <input type="radio" name="answer" value="answer1">Answer1
+                <input type="radio" name="answer" value="answer2">Answer2
+                <input type="radio" name="answer" value="answer3">Answer3
+                <input type="radio" name="answer" value="answer4">Answer4
+            </form>
+
+        <h3>Question3</h3>
+            <form>
+                <input type="radio" name="answer" value="answer1">Answer1
+                <input type="radio" name="answer" value="answer2">Answer2
+                <input type="radio" name="answer" value="answer3">Answer3
+                <input type="radio" name="answer" value="answer4">Answer4
+            </form>
+
+        <h3>Question4</h3>
+            <form>
+                <input type="radio" name="answer" value="answer1">Answer1
+                <input type="radio" name="answer" value="answer2">Answer2
+                <input type="radio" name="answer" value="answer3">Answer3
+                <input type="radio" name="answer" value="answer4">Answer4
+            </form>
+
+    </div>
+
 </body>
 
 <script>
+    var number = 30;
+    var intervalId;
+
+    $(".questions").hide();
+    $("#show-number").hide();
+
+    $("#start-game").on("click", function () {
+        $("#start-game").hide();
+        $(".questions").show();
+        $("#show-number").show();
+
+        if (intervalId) {
+            clearInterval(intervalId);
+        }
+        intervalId = setInterval(decrement, 1000);
+        function decrement() {
+
+            number--;
+
+            $("#show-number").html("<h2>Time remaining: " + number + " seconds.</h2>");
+
+            if (number === 0) {
+                number = 0;
+                clearInterval(intervalId);
+            }
+
+        }
+    });
+
+
+
 
 //create game with working timer and have questions that have multiple answers
 //start by having a start screen that has a button marked something like "start game" 
 //link that button to a new page and have it start the timer on that new page.
 //List out all questions with 4 mulitiple choice answers created as something you can click on(?)
+    //only provide one answer clicked at a time. No multiple answers.
 //Keep track on the choice clicked and those unclicked
     //for those that are clicked, decide that if it is the right answer or not and record it as right or wrong.
     //if unclicked, record as unanswered.
