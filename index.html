@@ -14,50 +14,56 @@
         <button id="start-game">Start Game</button>
     </div>
     <div id="show-number">
-        <h2>Time remaining: 30 seconds</h2>
+        <h2>Time remaining: 30 seconds.</h2>
     </div>
 
     <div class="questions">
+        <form>
+            <h3>Question0</h3>
+            <input type="radio" name="answer0" value="answer1">Answer1
+            <input type="radio" name="answer0" value="answer2">Answer2
+            <input type="radio" name="answer0" value="answer3">Answer3
+            <input type="radio" name="answer0" value="answer4">Answer4
+            <br>
 
-        <h3>Question0</h3>
-            <form>
-                <input type="radio" name="answer" value="answer1">Answer1
-                <input type="radio" name="answer" value="answer2">Answer2
-                <input type="radio" name="answer" value="answer3">Answer3
-                <input type="radio" name="answer" value="answer4">Answer4
-            </form>
-            
-        <h3>Question1</h3>
-            <form>
-                <input type="radio" name="answer" value="answer1">Answer1
-                <input type="radio" name="answer" value="answer2">Answer2
-                <input type="radio" name="answer" value="answer3">Answer3
-                <input type="radio" name="answer" value="answer4">Answer4
-            </form>
+            <h3>Question1</h3>
+            <input type="radio" name="answer1" value="answer1">Answer1
+            <input type="radio" name="answer1" value="answer2">Answer2
+            <input type="radio" name="answer1" value="answer3">Answer3
+            <input type="radio" name="answer1" value="answer4">Answer4
+            <br>
 
-        <h3>Question2</h3>
-            <form>
-                <input type="radio" name="answer" value="answer1">Answer1
-                <input type="radio" name="answer" value="answer2">Answer2
-                <input type="radio" name="answer" value="answer3">Answer3
-                <input type="radio" name="answer" value="answer4">Answer4
-            </form>
+            <h3>Question2</h3>
+            <input type="radio" name="answer2" value="answer1">Answer1
+            <input type="radio" name="answer2" value="answer2">Answer2
+            <input type="radio" name="answer2" value="answer3">Answer3
+            <input type="radio" name="answer2" value="answer4">Answer4
+            <br>
 
-        <h3>Question3</h3>
-            <form>
-                <input type="radio" name="answer" value="answer1">Answer1
-                <input type="radio" name="answer" value="answer2">Answer2
-                <input type="radio" name="answer" value="answer3">Answer3
-                <input type="radio" name="answer" value="answer4">Answer4
-            </form>
+            <h3>Question3</h3>
+            <input type="radio" name="answer3" value="answer1">Answer1
+            <input type="radio" name="answer3" value="answer2">Answer2
+            <input type="radio" name="answer3" value="answer3">Answer3
+            <input type="radio" name="answer3" value="answer4">Answer4
+            <br>
 
-        <h3>Question4</h3>
-            <form>
-                <input type="radio" name="answer" value="answer1">Answer1
-                <input type="radio" name="answer" value="answer2">Answer2
-                <input type="radio" name="answer" value="answer3">Answer3
-                <input type="radio" name="answer" value="answer4">Answer4
-            </form>
+            <h3>Question4</h3>
+            <input type="radio" name="answer4" value="answer1">Answer1
+            <input type="radio" name="answer4" value="answer2">Answer2
+            <input type="radio" name="answer4" value="answer3">Answer3
+            <input type="radio" name="answer4" value="answer4">Answer4
+            <br>
+
+            <input type="submit" id="submit-button">
+
+        </form>
+
+    </div>
+
+    <div class="results">
+        <p id="correct-answers">Correct answers:</p>
+        <p id="incorrect-answers">Incorrect answers:</p>
+        <p id="unanswered">Unanswered:</p>
 
     </div>
 
@@ -69,11 +75,14 @@
 
     $(".questions").hide();
     $("#show-number").hide();
+    $("#submit-button").hide();
+    $(".results").hide();
 
     $("#start-game").on("click", function () {
         $("#start-game").hide();
         $(".questions").show();
         $("#show-number").show();
+        $("#submit-button").show();
 
         if (intervalId) {
             clearInterval(intervalId);
@@ -86,15 +95,33 @@
             $("#show-number").html("<h2>Time remaining: " + number + " seconds.</h2>");
 
             if (number === 0) {
-                number = 0;
                 clearInterval(intervalId);
             }
 
         }
     });
 
+          
+    $("#submit-button").on("click", function () {
+        event.preventDefault();
+        $(".questions").hide();
+        $(".results").show();
+        $("#show-number").hide();
+
+        console.log("hello!! Is this working???")
+    
+        });
+
+//Slack Phil for answers
 
 
+//Look up form with multiple radio buttons
+
+//create submit button within form
+
+//create div around each 4 answers under question and within the div add a data value for the right answer 
+
+//for end game screen, pull the data value $("#whatever Id").attr("data-value")
 
 //create game with working timer and have questions that have multiple answers
 //start by having a start screen that has a button marked something like "start game" 
