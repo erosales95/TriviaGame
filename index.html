@@ -18,41 +18,61 @@
     </div>
 
     <div class="questions">
-        <form>
-            <h3>Question0</h3>
-            <input type="radio" name="answer0" value="answer1">Answer1
-            <input type="radio" name="answer0" value="answer2">Answer2
-            <input type="radio" name="answer0" value="answer3">Answer3
-            <input type="radio" name="answer0" value="answer4">Answer4
-            <br>
+        <form id="whole-form">
+            <div id="first-question">
+                <h3>Question0</h3>
+                <div class="first-group-answers" value="firstAnswer2">
+                    <input type="radio" name="answer0" value="wrong">Answer1
+                    <input type="radio" name="answer0" value="correct">Answer2
+                    <input type="radio" name="answer0" value="wrong">Answer3
+                    <input type="radio" name="answer0" value="wrong">Answer4
+                    <br>
+                </div>
+            </div>
 
-            <h3>Question1</h3>
-            <input type="radio" name="answer1" value="answer1">Answer1
-            <input type="radio" name="answer1" value="answer2">Answer2
-            <input type="radio" name="answer1" value="answer3">Answer3
-            <input type="radio" name="answer1" value="answer4">Answer4
-            <br>
+            <div id="second-question">
+                <div class="second-group-answers">
+                    <h3>Question1</h3>
+                    <input type="radio" name="answer1" value="wrong">Answer1
+                    <input type="radio" name="answer1" value="wrong">Answer2
+                    <input type="radio" name="answer1" value="correct">Answer3
+                    <input type="radio" name="answer1" value="wrong">Answer4
+                    <br>
+                </div>
+            </div>
 
-            <h3>Question2</h3>
-            <input type="radio" name="answer2" value="answer1">Answer1
-            <input type="radio" name="answer2" value="answer2">Answer2
-            <input type="radio" name="answer2" value="answer3">Answer3
-            <input type="radio" name="answer2" value="answer4">Answer4
-            <br>
+            <div id="third-question">
+                <div class="third-group-answers">
+                    <h3>Question2</h3>
+                    <input type="radio" name="answer2" value="correct">Answer1
+                    <input type="radio" name="answer2" value="wrong">Answer2
+                    <input type="radio" name="answer2" value="wrong">Answer3
+                    <input type="radio" name="answer2" value="wrong">Answer4
+                    <br>
+                </div>
+            </div>
 
-            <h3>Question3</h3>
-            <input type="radio" name="answer3" value="answer1">Answer1
-            <input type="radio" name="answer3" value="answer2">Answer2
-            <input type="radio" name="answer3" value="answer3">Answer3
-            <input type="radio" name="answer3" value="answer4">Answer4
-            <br>
+            <div id="fourth-question">
+                <h3>Question3</h3>
+                <div class="fourth-group-answers">
+                    <input type="radio" name="answer3" value="correct">Answer1
+                    <input type="radio" name="answer3" value="wrong">Answer2
+                    <input type="radio" name="answer3" value="wrong">Answer3
+                    <input type="radio" name="answer3" value="wrong">Answer4
+                    <br>
+                </div>
+            </div>
 
-            <h3>Question4</h3>
-            <input type="radio" name="answer4" value="answer1">Answer1
-            <input type="radio" name="answer4" value="answer2">Answer2
-            <input type="radio" name="answer4" value="answer3">Answer3
-            <input type="radio" name="answer4" value="answer4">Answer4
-            <br>
+            <div id="fifth-question">
+                <h3>Question4</h3>
+                <div class="fifth-group-answers">
+                    <input type="radio" name="answer4" value="wrong">Answer1
+                    <input type="radio" name="answer4" value="wrong">Answer2
+                    <input type="radio" name="answer4" value="wrong">Answer3
+                    <input type="radio" name="answer4" value="correct">Answer4
+                    <br>
+                </div>
+            </div>
 
             <input type="submit" id="submit-button">
 
@@ -61,9 +81,6 @@
     </div>
 
     <div class="results">
-        <p id="correct-answers">Correct answers:</p>
-        <p id="incorrect-answers">Incorrect answers:</p>
-        <p id="unanswered">Unanswered:</p>
 
     </div>
 
@@ -72,6 +89,14 @@
 <script>
     var number = 30;
     var intervalId;
+    var correctAns = 0;
+    var incorrectAns = 0;
+    var unanswered = 0;
+
+    // correctAns = $("#correct-answers");
+    // incorrectAns = $("#incorrect-answers");
+    // unanswered = $("#unanswered");
+
 
     $(".questions").hide();
     $("#show-number").hide();
@@ -101,26 +126,85 @@
         }
     });
 
-          
-    $("#submit-button").on("click", function () {
+
+    $("#whole-form").on("submit", function () {
         event.preventDefault();
         $(".questions").hide();
         $(".results").show();
         $("#show-number").hide();
+        console.log($(this).serialize());
 
-        console.log("hello!! Is this working???")
-    
-        });
+
+        for (var i = 1; i < 5; i++) {
+
+            var radios = document.getElementsByName('answer' + i);
+
+            for (var j = 0; j < radios.length; j++) {
+
+                var radio = radios[j];
+                if (radio.value == "correct") {
+                    correctAns++;
+                } else if (radio.value == null || radio.value == "") {
+                    unanswered++;
+                } else if (radio.value != "correct") {
+                    incorrectAns++;
+                }
+            }
+        }
+
+        //**HERE** This is Where I initially kept my statements before I tried the For-loops.
+
+        // if (answer === "firstAnswer2") {
+        //     correctAns++
+        // }
+
+
+        // else if (answer == null || answer == "") {
+        //     unanswered++
+
+        // }
+
+        // else if (answer != "firstAnswer2") {
+        //     incorrectAns++
+
+        // };
+        var html =
+            "<p>Correct answers: " + correctAns + "</p> <br>" +
+            "<p>Incorrect answers: " + incorrectAns + "</p> <br>" +
+            "<p>Unanswered: " + unanswered + "</p> <br>";
+
+
+        document.querySelector(".results").innerHTML = html;
+
+        console.log('this is our correct answers inside', correctAns);
+        console.log('this is our incorrect answers inside', incorrectAns);
+        console.log('this is our unanswered spot thing inside', unanswered);
+
+        // $(".results").empty();
+
+    });
 
 //Slack Phil for answers
 
+//I was going to pull
 
-//Look up form with multiple radio buttons
+// **************************HERE********************************* 
 
-//create submit button within form
+//Here is where I started my psudocoding. I couldn't figure a part out on how to record the information and display
+    //it on the end screen. I tried having help from Karl on Thurday after class and he tried to help me and I wrote down what 
+    //he said on lines 207-208. I tried slacking Phil and the #hwhelp channel on slack and I couldn't figure out anything. I'm writing
+    //this at 3:19am still stuck as the same position as before. With the intitial statements (lines 157-170) before I tried the
+    // for loops, I commented out all the other question (lines 33-75) besides the first question to try to get the first question
+    //to function properally before applying them to the rest of the questions. I was going to add to the css and html more after
+    //I got all the Javascript working. But it seems I couldn't get around to that and I'm stuck. All that I really have left after
+    //that is rewording the html and creating css to make it look good. I'm looking forward to finishing this with Phil and the TA's.   
+
+
+
+
+//                                          **Psudocoding**
 
 //create div around each 4 answers under question and within the div add a data value for the right answer 
-
 //for end game screen, pull the data value $("#whatever Id").attr("data-value")
 
 //create game with working timer and have questions that have multiple answers
